@@ -7,6 +7,7 @@
 [![Plotly](https://img.shields.io/badge/Plotly-5.15%2B-3F4F75?logo=plotly)](https://plotly.com)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.28%2B-FF4B4B?logo=streamlit)](https://streamlit.io)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/Yash-Patil-1/UserInsights/userinsights-ci.yml?branch=main&label=CI&logo=github)](https://github.com/Yash-Patil-1/UserInsights/actions/workflows/userinsights-ci.yml)
 
 **End-to-end customer analytics pipeline — from synthetic data generation to interactive dashboards.**
 

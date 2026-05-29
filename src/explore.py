@@ -17,8 +17,6 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import seaborn as sns
-from pathlib import Path
-
 from config import DATA_DIR, REPORTS_DIR
 
 plt.rcParams.update({
@@ -93,7 +91,7 @@ def plot_event_funnel(df: pd.DataFrame):
     fig.tight_layout()
     fig.savefig(OUTPUT_DIR / "funnel.png")
     plt.close(fig)
-    print(f"  Saved: funnel.png")
+    print("  Saved: funnel.png")
 
 
 def plot_daily_trends(df: pd.DataFrame):
@@ -124,7 +122,7 @@ def plot_daily_trends(df: pd.DataFrame):
     fig.tight_layout()
     fig.savefig(OUTPUT_DIR / "daily_trends.png")
     plt.close(fig)
-    print(f"  Saved: daily_trends.png")
+    print("  Saved: daily_trends.png")
 
 
 def plot_hourly_heatmap(df: pd.DataFrame):
@@ -144,7 +142,7 @@ def plot_hourly_heatmap(df: pd.DataFrame):
     fig.tight_layout()
     fig.savefig(OUTPUT_DIR / "hourly_heatmap.png")
     plt.close(fig)
-    print(f"  Saved: hourly_heatmap.png")
+    print("  Saved: hourly_heatmap.png")
 
 
 def plot_channel_performance(df: pd.DataFrame):
@@ -182,7 +180,7 @@ def plot_channel_performance(df: pd.DataFrame):
     fig.tight_layout()
     fig.savefig(OUTPUT_DIR / "channel_performance.png")
     plt.close(fig)
-    print(f"  Saved: channel_performance.png")
+    print("  Saved: channel_performance.png")
 
 
 def plot_device_breakdown(df: pd.DataFrame):
@@ -217,7 +215,7 @@ def plot_device_breakdown(df: pd.DataFrame):
     fig.tight_layout()
     fig.savefig(OUTPUT_DIR / "device_breakdown.png")
     plt.close(fig)
-    print(f"  Saved: device_breakdown.png")
+    print("  Saved: device_breakdown.png")
 
 
 def plot_top_cities(df: pd.DataFrame):
@@ -242,7 +240,7 @@ def plot_top_cities(df: pd.DataFrame):
     fig.tight_layout()
     fig.savefig(OUTPUT_DIR / "top_cities.png")
     plt.close(fig)
-    print(f"  Saved: top_cities.png")
+    print("  Saved: top_cities.png")
 
 
 def plot_new_vs_returning(df: pd.DataFrame):
@@ -291,7 +289,7 @@ def plot_new_vs_returning(df: pd.DataFrame):
     fig.tight_layout()
     fig.savefig(OUTPUT_DIR / "new_vs_returning.png")
     plt.close(fig)
-    print(f"  Saved: new_vs_returning.png")
+    print("  Saved: new_vs_returning.png")
 
 
 def main():

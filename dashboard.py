@@ -70,7 +70,7 @@ def compute_cohort_data(df):
         for month in sorted(df[df["user_id"].isin(cohort_users)]["activity_month"].unique()):
             c = pd.Period(cohort, freq="M")
             m = pd.Period(month, freq="M")
-            period = m - c  # integer
+            period = (m - c).n  # extract integer from MonthEnd offset
             active = df[(df["cohort_month"] == cohort) & (df["activity_month"] == month)]["user_id"].nunique()
             retention = round(active / cohort_size * 100, 1) if cohort_size > 0 else 0
             cohort_data.append({

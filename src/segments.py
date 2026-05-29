@@ -18,7 +18,7 @@ import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from config import DATA_DIR, REPORTS_DIR
 
@@ -298,23 +298,24 @@ def compute_rfm(df: pd.DataFrame) -> pd.DataFrame:
         """Assign 1-5 score based on quintiles. Reverse=True means higher is worse."""
         if series.nunique() < 2:
             return pd.Series([3] * len(series), index=series.index)
-        try:
-            quintiles = series.quantile([0.2, 0.4, 0.6, 0.8]).values
-            if reverse:
-                scores = pd.cut(
-                    series,
-                    bins=[-np.inf] + list(quintiles) + [np.inf],
-                    labels=[5, 4, 3, 2, 1],
-                )
-            else:
-                scores = pd.cut(
-                    series,
-                    bins=[-np.inf] + list(quintiles) + [np.inf],
-                    labels=[1, 2, 3, 4, 5],
-                )
-            return scores.astype(int)
-        except (ValueError, IndexError):
+        quintiles = series.quantile([0.2, 0.4, 0.6, 0.8]).values
+        # Guard: if all quantile edges are identical (e.g., all same value),
+        # pd.cut will fail — fall back to median score
+        if len(set(quintiles)) < len(quintiles):
             return pd.Series([3] * len(series), index=series.index)
+        if reverse:
+            scores = pd.cut(
+                series,
+                bins=[-np.inf] + list(quintiles) + [np.inf],
+                labels=[5, 4, 3, 2, 1],
+            )
+        else:
+            scores = pd.cut(
+                series,
+                bins=[-np.inf] + list(quintiles) + [np.inf],
+                labels=[1, 2, 3, 4, 5],
+            )
+        return scores.astype(int)
 
     rfm["R"] = score_column(rfm["recency_days"], reverse=True)
     rfm["F"] = score_column(rfm["purchases"])
@@ -507,7 +508,7 @@ def print_rfm_summary(rfm: pd.DataFrame):
 
     # Revenue contribution by segment (exclude Browsing Only)
     has_rev = rfm[rfm["revenue"] > 0]
-    print(f"\nRevenue Contribution by Segment:")
+    print("\nRevenue Contribution by Segment:")
     seg_rev = has_rev.groupby("Segment")["revenue"].sum().sort_values(ascending=False)
     total_rev = seg_rev.sum()
     for seg, rev in seg_rev.items():

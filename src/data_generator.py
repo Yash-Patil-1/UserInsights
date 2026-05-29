@@ -7,8 +7,11 @@ demographics, and purchase behavior over a 6-month period.
 
 import csv
 import random
+import sys
 from datetime import datetime, timedelta
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import numpy as np
 
